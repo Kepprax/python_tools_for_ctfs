@@ -20,8 +20,8 @@ def change_mac_addres(user_interface,user_mac_address):
     subprocess.call(["ifconfig",user_interface,"hw","ether",user_mac_address])
     subprocess.call(["ifconfig",user_interface,"up"])
 
-    #Buraya kadar başarılı ama burdan sonra mac adresi değiştiği için dhcp protokü çalışmıyor yeni mac adresine
-    #ıp atmıyor bu yüzden aşağıdaki kodlara ihtiyacımız var
+    #Everything has been fine up to this point, but after this point, the DHCP protocol stops working because the MAC address changes and it doesn't assign an IP address to the new MAC address. 
+    #Therefore, we need the following code.
 
     result = subprocess.call(["dhclient", user_interface])
     if result != 0:
@@ -29,7 +29,7 @@ def change_mac_addres(user_interface,user_mac_address):
     else:
         print("[+] IP adresi başarıyla alındı.")
 
-    #subprocess.call(["dhclient", user_interface])  # Bu satırı ekledim ama hata aldım
+  
 
 def control_new_mac_address(interface):
     ifconfig=subprocess.check_output(["ifconfig",interface]).decode('utf-8')
